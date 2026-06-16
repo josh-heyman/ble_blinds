@@ -1,0 +1,21 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select your Smart Blinds",
+        "data": {
+          "address": "Discovered Bluetooth Device",
+          "name": "Friendly Name"
+        }
+      },
+      "bluetooth_confirm": {
+        "title": "Discovered Smart Blinds",
+        "description": "Do you want to add '{name}' to Home Assistant?"
+      }
+    },
+    "abort": {
+      "no_devices_found": "No BLE Blinds were discovered nearby. Ensure they are powered on.",
+      "already_configured": "This device is already configured."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "domain": "ble_blinds",
+  "name": "BLE Blinds",
+  "version": "1.0.0",
+  "config_flow": true,
+  "documentation": "https://github.com/joshheyman",
+  "dependencies": [],
+  "requirements": ["bleak>=0.21.1"],
+  "codeowners": ["@joshheyman"],
+  "iot_class": "local_push",
+  "bluetooth": [
+    {
+      "local_name": "Josh's Blinds"
+    },
+    {
+      "service_uuid": "c52b8845-494d-4769-8e5f-6699e6b62b11"
+    }
+  ]
+}
