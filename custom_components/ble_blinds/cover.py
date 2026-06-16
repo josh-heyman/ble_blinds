@@ -17,7 +17,6 @@ class BleBlindsCover(CoverEntity):
 
     @property
     def device_info(self):
-        """Links this entity directly to the primary Device."""
         return {
             "identifiers": {(DOMAIN, self._hub.mac)},
             "name": self._hub.name,
@@ -34,10 +33,9 @@ class BleBlindsCover(CoverEntity):
         return self._hub.current_position == 0
 
     async def async_added_to_hass(self):
-        """Subscribe to updates when the hub receives Bluetooth data."""
         self._hub.position_callbacks.append(self._update_state)
 
-    def _update_state(self, position):
+    def _update_state(self):
         if self.hass:
             self.hass.loop.call_soon_threadsafe(self.async_write_ha_state)
 

@@ -20,5 +20,4 @@ class BleBlindsLimitButton(ButtonEntity):
         return {"identifiers": {(DOMAIN, self._hub.mac)}}
 
     async def async_press(self) -> None:
-        """Fires when you press the button in the UI."""
         await self._hub.send_command(bytearray([self._command_byte]))

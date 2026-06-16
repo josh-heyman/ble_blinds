@@ -8,10 +8,8 @@ from homeassistant.const import CONF_ADDRESS, CONF_NAME
 
 DOMAIN = "ble_blinds"
 
-
 class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for BLE Blinds."""
-
     VERSION = 1
 
     def __init__(self):
@@ -22,7 +20,7 @@ class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Triggered automatically when HA discovers the blinds."""
         await self.async_set_unique_id(discovery_info.address)
         self._abort_if_unique_id_configured()
-
+        
         self._discovery_info = discovery_info
         return await self.async_step_bluetooth_confirm()
 
@@ -40,7 +38,7 @@ class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self._set_confirm_only()
         return self.async_show_form(
             step_id="bluetooth_confirm",
-            description_placeholders={"name": self._discovery_info.name},
+            description_placeholders={"name": self._discovery_info.name}
         )
 
     async def async_step_user(self, user_input=None):
@@ -48,7 +46,7 @@ class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             await self.async_set_unique_id(user_input[CONF_ADDRESS])
             self._abort_if_unique_id_configured()
-
+            
             return self.async_create_entry(
                 title=user_input.get(CONF_NAME, "BLE Blinds"),
                 data=user_input,
@@ -59,8 +57,7 @@ class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         devices = {
             device.address: f"{device.name} ({device.address})"
             for device in discovered
-            if "c52b8845-494d-4769-8e5f-6699e6b62b11" in device.service_uuids
-            or device.name == "Josh's Blinds"
+            if "c52b8845-494d-4769-8e5f-6699e6b62b11" in device.service_uuids or device.name == "Josh's Blinds"
         }
 
         if not devices:
@@ -68,10 +65,8 @@ class BleBlindsConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(CONF_ADDRESS): vol.In(devices),
-                    vol.Optional(CONF_NAME, default="Living Room Blinds"): str,
-                }
-            ),
+            data_schema=vol.Schema({
+                vol.Required(CONF_ADDRESS): vol.In(devices),
+                vol.Optional(CONF_NAME, default="Living Room Blinds"): str,
+            })
         )
